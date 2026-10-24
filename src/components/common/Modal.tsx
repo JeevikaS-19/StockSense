@@ -48,14 +48,14 @@ export const Modal: React.FC<ModalProps> = ({
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+        <div className="flex items-center justify-between bg-[#1a365d] px-6 py-4 text-white">
           <div>
-            <h3 className="text-base font-semibold text-slate-900">{title}</h3>
-            {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
+            <h3 className="text-base font-semibold text-white">{title}</h3>
+            {description && <p className="mt-0.5 text-xs text-slate-300">{description}</p>}
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100 transition-colors"
+            className="rounded-md p-1.5 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
             aria-label="Close dialog"
           >
             <X className="w-4 h-4" />

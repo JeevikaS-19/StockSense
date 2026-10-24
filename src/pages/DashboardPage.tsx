@@ -9,14 +9,14 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianG
 import { money, moneyWhole, percent, quantity, dateTime } from '../lib/format.ts';
 import { useCountUp } from '../hooks/useCountUp.ts';
 
-const tooltipStyle = { backgroundColor: '#FFFFFF', borderRadius: '14px', border: 'none', boxShadow: '0 8px 20px rgba(232,116,59,0.18)', fontSize: '13px' };
+const tooltipStyle = { backgroundColor: '#FFFFFF', borderRadius: '14px', border: 'none', boxShadow: '0 4px 12px rgba(15,23,42,0.12)', fontSize: '13px' };
 
 // One clay tile with one number. The number counts up when it appears, and each tile rises in one after another.
 const Tile: React.FC<{ label: string; value: number | string; format?: (n: number) => string; hint?: string; tone?: 'default' | 'attention' | 'alert'; index?: number }> = ({ label, value, format = (n) => String(Math.round(n)), hint, tone = 'default', index = 0 }) => {
   const animated = useCountUp(typeof value === 'number' ? value : 0);
   const shown = typeof value === 'number' ? format(animated) : value;
   return (
-    <div className="clay rise p-5" style={{ animationDelay: `${index * 90}ms` }}>
+    <div className="clay kpi rise p-5" style={{ animationDelay: `${index * 90}ms` }}>
       <p className="text-sm font-semibold text-slate-500">{label}</p>
       <p className={`mt-2 text-3xl font-extrabold tracking-tight tabular-nums ${tone === 'alert' ? 'text-rose-700' : tone === 'attention' ? 'text-amber-700' : 'text-slate-900'}`}>{shown}</p>
       {hint && <p className="mt-1 text-sm text-slate-500">{hint}</p>}
@@ -88,13 +88,13 @@ export const DashboardPage: React.FC = () => {
               {stats.flow_30_days.some((d) => d.stock_in || d.stock_out) ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={stats.flow_30_days} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#FFD9BF" />
-                    <XAxis dataKey="display_date" tick={{ fontSize: 12, fill: '#8A6A58' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
-                    <YAxis tick={{ fontSize: 12, fill: '#8A6A58' }} tickLine={false} axisLine={false} allowDecimals={false} />
+                    <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#e2e8f0" />
+                    <XAxis dataKey="display_date" tick={{ fontSize: 12, fill: '#64748b' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
+                    <YAxis tick={{ fontSize: 12, fill: '#64748b' }} tickLine={false} axisLine={false} allowDecimals={false} />
                     <Tooltip contentStyle={tooltipStyle} />
                     <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{ fontSize: '13px', paddingBottom: '8px' }} />
-                    <Line type="monotone" dataKey="stock_in" name="In" stroke="#E8743B" strokeWidth={3} dot={false} />
-                    <Line type="monotone" dataKey="stock_out" name="Out" stroke="#FFB347" strokeWidth={3} dot={false} />
+                    <Line type="monotone" dataKey="stock_in" name="In" stroke="#0891b2" strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="stock_out" name="Out" stroke="#d97706" strokeWidth={2.5} dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
@@ -152,7 +152,7 @@ export const DashboardPage: React.FC = () => {
                   <div className="space-y-3">
                     <p className="text-slate-700">{money(budget.available)} left of {money(budget.allocated)}</p>
                     <div className="h-3 w-full overflow-hidden rounded-full bg-orange-100" role="progressbar" aria-valuenow={Math.round(budget.percent_used)} aria-valuemin={0} aria-valuemax={100}>
-                      <div className="h-full rounded-full bg-gradient-to-r from-amber-300 to-orange-500" style={{ width: `${Math.min(100, budget.percent_used)}%` }} />
+                      <div className="h-full rounded-full bg-teal-600" style={{ width: `${Math.min(100, budget.percent_used)}%` }} />
                     </div>
                     <p className="text-sm text-slate-500">{budget.period_label}</p>
                   </div>
