@@ -311,3 +311,24 @@ button:disabled {
   background-clip: text;
   color: transparent;
 }
+
+/* Hover states follow the warm palette too (the normal-state overrides above do not cover :hover). */
+.hover\:bg-slate-800:hover,
+.hover\:bg-slate-100:hover {
+  background-color: #ffe9d6;
+}
+.hover\:bg-slate-50:hover {
+  background-color: #fff4ea;
+}
+.hover\:text-white:hover {
+  color: var(--brown);
+}
+.hover\:text-slate-900:hover,
+.hover\:text-slate-800:hover,
+.hover\:text-slate-700:hover,
+.hover\:text-slate-600:hover {
+  color: var(--brown);
+}
+.hover\:border-indigo-400:hover {
+  border-color: var(--orange);
+}
