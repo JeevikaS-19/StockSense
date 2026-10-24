@@ -1,32 +1,37 @@
 @import "tailwindcss";
 
 /*
- * StockSense design system: professional lab-management software.
- * Navy primary, teal for data and secondary actions, emerald for success, amber for warnings,
- * rose for errors. Cool neutrals. Flat surfaces with light borders. No gradients. See docs/DESIGN.md.
+ * StockSense design system: green and beige, with soft aura gradients and light claymorphism.
+ * Forest green is the primary colour. Beige is the surface. Amber, rose and emerald keep their meaning.
+ * Gradients and clay depth are kept gentle. See docs/DESIGN.md.
  */
 :root {
-  --navy: #1a365d;
-  --navy-hover: #142b4d;
-  --teal: #0891b2;
-  --teal-soft: #f0f9ff;
-  --teal-line: #7dd3fc;
-  --emerald: #059669;
-  --amber: #d97706;
-  --rose: #e11d48;
-  --rose-hover: #be123c;
-  --bg: #f8fafc;
-  --line: #e2e8f0;
-  --line-strong: #cbd5e1;
-  --muted: #94a3b8;
-  --body: #475569;
+  --green: #2f6b4f;
+  --green-deep: #1f4d3a;
+  --green-hover: #255a43;
+  --green-soft: #e9f1ec;
+  --green-line: #a9c8b6;
+  --sage: #6f9a84;
+  --beige: #f6f0e6;
+  --beige-deep: #ece3d3;
+  --surface: #fffcf7;
+  --line: #e6dccb;
+  --line-strong: #d2c5ad;
+  --muted: #8f8573;
+  --body: #5c5344;
+  --emerald: #3e8e63;
+  --amber: #c98a1b;
+  --amber-soft: #fbf3e0;
+  --rose: #c2412d;
+  --rose-hover: #a8351f;
+  --rose-soft: #fbeae6;
 }
 
 @layer base {
   html,
   body {
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    background-color: var(--bg);
+    background-color: var(--beige);
     color: var(--body);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -35,7 +40,7 @@
   h1,
   h2,
   h3 {
-    color: var(--navy);
+    color: var(--green-deep);
   }
 
   .tabular-nums {
@@ -43,36 +48,67 @@
   }
 }
 
-/* No decorative background. */
+/* Soft aura: two large blurred blobs (sage and warm beige) behind the app. Kept faint. */
 body::before,
-body::after,
-.auth-blob {
-  display: none;
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+body::before {
+  width: 620px;
+  height: 520px;
+  top: -220px;
+  right: -180px;
+  background: radial-gradient(circle, #b9d4c4 0%, #d9e8de 45%, transparent 72%);
+  opacity: 0.55;
+}
+body::after {
+  width: 560px;
+  height: 480px;
+  bottom: -240px;
+  left: -200px;
+  background: radial-gradient(circle, #e9d8b8 0%, #f1e6d2 50%, transparent 72%);
+  opacity: 0.6;
 }
 
-/* ---- Surfaces ---- */
+/* ---- Clay surfaces: a gentle gradient, a light top-left highlight and a soft warm shadow ---- */
 .clay,
 .bg-white {
-  background: #ffffff;
+  background: linear-gradient(145deg, #fffdf9 0%, #f7f1e6 100%);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  border-radius: 14px;
+  box-shadow:
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    0 2px 6px rgba(92, 83, 68, 0.07),
+    0 8px 18px rgba(92, 83, 68, 0.06);
 }
 .clay {
-  transition: box-shadow 0.2s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 .clay:hover {
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    0 4px 10px rgba(92, 83, 68, 0.09),
+    0 12px 24px rgba(92, 83, 68, 0.09);
 }
 
 .rounded-3xl,
 .rounded-2xl,
-.rounded-xl,
+.rounded-xl {
+  border-radius: 14px;
+}
 .rounded-lg {
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .rounded-md {
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .border,
@@ -93,47 +129,47 @@ body::after,
 .shadow-md,
 .shadow-lg,
 .shadow-xs {
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 2px 6px rgba(92, 83, 68, 0.07);
 }
 .shadow-xl {
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 12px 30px rgba(92, 83, 68, 0.12);
 }
 
-/* Neutral fills */
+/* Neutral fills: beige */
 .bg-slate-50,
 .bg-slate-100,
 .bg-orange-50 {
-  background-color: var(--bg);
+  background-color: var(--beige);
 }
 .bg-slate-200 {
-  background-color: var(--line);
+  background-color: var(--beige-deep);
 }
 .bg-slate-800,
 .bg-slate-800\/60 {
-  background-color: #f1f5f9;
+  background-color: var(--beige-deep);
 }
 .bg-slate-900 {
-  background-color: #ffffff;
+  background: linear-gradient(180deg, #fffdf9 0%, #f7f1e6 100%);
 }
 .bg-slate-900\/40 {
-  background-color: rgba(15, 23, 42, 0.4);
+  background-color: rgba(47, 42, 34, 0.35);
 }
 
-/* Text: navy for headings and emphasis, slate for body, light grey for hints */
+/* Text: deep green for headings and emphasis, warm brown-grey for body, muted for hints */
 .text-slate-900 {
-  color: var(--navy);
+  color: var(--green-deep);
 }
 .text-slate-800 {
-  color: #1e293b;
+  color: #3f3a2f;
 }
 .text-slate-700 {
-  color: #334155;
+  color: #4a4438;
 }
 .text-slate-600 {
   color: var(--body);
 }
 .text-slate-500 {
-  color: #64748b;
+  color: #6e6656;
 }
 .text-slate-400 {
   color: var(--muted);
@@ -142,71 +178,73 @@ body::after,
   color: var(--line-strong);
 }
 
-/* ---- Brand and actions ---- */
+/* ---- Brand and actions: green with a soft gradient and a gentle clay shadow ---- */
 .bg-indigo-600 {
-  background-color: var(--navy);
+  background: linear-gradient(145deg, #3d7d5f 0%, var(--green) 100%);
   color: #ffffff;
-  box-shadow: none;
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 0.25),
+    0 4px 10px rgba(47, 107, 79, 0.25);
 }
 .bg-indigo-700,
 .hover\:bg-indigo-700:hover {
-  background-color: var(--navy-hover);
+  background: linear-gradient(145deg, var(--green) 0%, var(--green-deep) 100%);
 }
 .text-indigo-600,
 .text-indigo-700 {
-  color: var(--teal);
+  color: var(--green);
 }
 .text-indigo-800,
 .text-indigo-900 {
-  color: #155e75;
+  color: var(--green-deep);
 }
 .bg-indigo-50,
 .bg-indigo-50\/40,
 .bg-indigo-50\/30,
 .bg-indigo-50\/50 {
-  background-color: var(--teal-soft);
+  background-color: var(--green-soft);
 }
 .border-indigo-200,
 .border-indigo-300,
 .border-indigo-400,
 .border-indigo-500,
 .border-indigo-600 {
-  border-color: var(--teal-line);
+  border-color: var(--green-line);
 }
 .focus\:border-indigo-500:focus,
 .hover\:border-indigo-400:hover {
-  border-color: var(--teal);
+  border-color: var(--green);
 }
 .bg-teal-600 {
-  background-color: var(--teal);
+  background-color: var(--sage);
 }
 
-/* Semantic colours */
+/* Semantic colours: keep meaning, tuned to the palette */
 .bg-emerald-50 {
-  background-color: #ecfdf5;
+  background-color: #e8f4ec;
 }
 .text-emerald-700,
 .text-emerald-800 {
-  color: #047857;
+  color: #2f7050;
 }
 .border-emerald-200 {
-  border-color: #a7f3d0;
+  border-color: #b8dcc6;
 }
 .bg-amber-50 {
-  background-color: #fffbeb;
+  background-color: var(--amber-soft);
 }
 .text-amber-600,
 .text-amber-700,
 .text-amber-800,
 .text-amber-900 {
-  color: #b45309;
+  color: #91600f;
 }
 .border-amber-200,
 .border-amber-300 {
-  border-color: #fde68a;
+  border-color: #ecd49a;
 }
 .bg-rose-50 {
-  background-color: #fff1f2;
+  background-color: var(--rose-soft);
 }
 .text-rose-600 {
   color: var(--rose);
@@ -217,23 +255,24 @@ body::after,
   color: var(--rose-hover);
 }
 .bg-rose-600 {
-  background-color: var(--rose);
+  background: linear-gradient(145deg, #d24f38 0%, var(--rose) 100%);
+  box-shadow: 0 4px 10px rgba(194, 65, 45, 0.22);
 }
 .bg-rose-700,
 .hover\:bg-rose-700:hover {
-  background-color: var(--rose-hover);
+  background: var(--rose-hover);
 }
 .bg-blue-50 {
-  background-color: #ecfeff;
+  background-color: #eaf3ef;
 }
 .text-blue-700 {
-  color: #0e7490;
+  color: #2f6b55;
 }
 .border-blue-200 {
-  border-color: #a5f3fc;
+  border-color: #bcd6c9;
 }
 .text-orange-700 {
-  color: #0e7490;
+  color: #91600f;
 }
 
 /* ---- Hover states ---- */
@@ -241,131 +280,142 @@ body::after,
 .hover\:bg-slate-100:hover,
 .hover\:bg-slate-800:hover,
 .hover\:bg-orange-50:hover {
-  background-color: var(--teal-soft);
+  background-color: var(--green-soft);
 }
 .hover\:text-white:hover,
 .hover\:text-slate-900:hover,
 .hover\:text-slate-800:hover,
 .hover\:text-slate-700:hover,
 .hover\:text-slate-600:hover {
-  color: var(--navy);
+  color: var(--green-deep);
 }
 
-/* ---- Form fields ---- */
+/* ---- Form fields: soft inset look ---- */
 input,
 select,
 textarea {
   border: 1px solid var(--line-strong);
-  border-radius: 6px;
+  border-radius: 8px;
+  background-color: #fffdf9;
+  box-shadow: inset 1px 1px 3px rgba(92, 83, 68, 0.06);
 }
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(47, 107, 79, 0.16);
 }
 
-/* ---- Data tables: navy header, zebra rows, teal hover, row dividers only ---- */
+/* ---- Data tables: green header, beige zebra rows, green-tint hover ---- */
 thead.bg-slate-50 {
-  background-color: var(--navy);
+  background: linear-gradient(145deg, #3d7d5f 0%, var(--green) 100%);
 }
 thead.bg-slate-50 th {
-  color: #f8fafc;
+  color: #fffdf9;
 }
 tbody.divide-y > tr:nth-child(even) {
-  background-color: #f8fafc;
+  background-color: #faf6ee;
 }
 
-/* ---- Top bar: navy, with light text ---- */
+/* ---- Top bar: deep green with cream text ---- */
 header {
-  background-color: var(--navy);
-  border-color: var(--navy);
-  color: #f8fafc;
+  background-color: var(--green-deep);
+  border-color: var(--green-deep);
+  color: #f6f0e6;
 }
 header .text-slate-900 {
-  color: #ffffff;
+  color: #fffdf9;
 }
 header .text-slate-500,
 header .text-slate-400 {
-  color: #94a3b8;
+  color: #b9cfc2;
 }
 header .text-slate-700 {
-  color: #e2e8f0;
+  color: #e6efe9;
 }
 header .border-slate-200 {
   border-color: rgba(255, 255, 255, 0.14);
 }
-/* Dropdowns and pills that sit inside the navy bar keep dark text on white */
 header .bg-white .text-slate-900 {
-  color: var(--navy);
+  color: var(--green-deep);
 }
 header .bg-white .text-slate-500 {
-  color: #64748b;
+  color: #6e6656;
 }
 header .bg-white .text-slate-700 {
-  color: #334155;
+  color: #4a4438;
 }
 header .bg-white .text-slate-400 {
   color: var(--muted);
 }
 header button.bg-white {
-  color: var(--navy);
+  color: var(--green-deep);
 }
 header button[aria-label^="Notifications"] {
-  color: #22d3ee;
+  color: #e8c77a;
 }
 header .bg-slate-800 {
   background-color: rgba(255, 255, 255, 0.12);
 }
+header.bg-white {
+  background: linear-gradient(145deg, #2a5f48 0%, var(--green-deep) 100%);
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  box-shadow: 0 2px 10px rgba(31, 77, 58, 0.18);
+}
 
-/* ---- Sidebar: white, quiet, teal tint for the active item ---- */
+/* ---- Sidebar: beige and clay, green tint for the active item ---- */
 aside {
   border-color: var(--line);
 }
 aside .text-white {
-  color: var(--navy);
+  color: var(--green-deep);
 }
 aside .text-slate-300,
 aside .text-slate-400 {
-  color: #64748b;
+  color: #6e6656;
 }
 aside .text-slate-100,
 aside .text-slate-200 {
-  color: var(--navy);
+  color: var(--green-deep);
 }
 aside .bg-slate-700 {
-  background-color: var(--line);
+  background-color: var(--beige-deep);
 }
 aside nav svg {
-  color: var(--navy);
+  color: var(--green);
 }
 aside a.bg-indigo-600 {
-  background-color: var(--teal-soft);
-  color: var(--navy);
+  background: var(--green-soft);
+  color: var(--green-deep);
   font-weight: 600;
-  box-shadow: inset 3px 0 0 var(--teal);
+  box-shadow: inset 3px 0 0 var(--green);
 }
 aside a.bg-indigo-600 svg {
-  color: var(--teal);
+  color: var(--green);
 }
 
-/* ---- Sign-in and sign-up ---- */
+/* ---- Sign-in and sign-up: beige with the same soft aura ---- */
 .auth-bg {
-  background: var(--bg);
+  background: var(--beige);
+}
+.auth-blob {
+  display: none;
 }
 .wordmark {
   font-family: Inter, system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: var(--navy);
+  color: var(--green-deep);
 }
 
-/* ---- Motion: short and quiet ---- */
+/* ---- Motion: gentle ---- */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -373,7 +423,7 @@ aside a.bg-indigo-600 svg {
   }
 }
 .rise {
-  animation: rise 0.35s ease-out both;
+  animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 button,
@@ -382,17 +432,21 @@ input,
 select,
 textarea {
   transition:
-    background-color 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
 }
 button:active:not(:disabled) {
   transform: scale(0.98);
 }
 
 [role="progressbar"] > div {
-  transition: width 0.7s ease-out;
+  transition: width 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -402,6 +456,26 @@ button:active:not(:disabled) {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* KPI tiles carry a green accent stripe across the top. */
+.kpi {
+  position: relative;
+  overflow: hidden;
+}
+.kpi::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3d7d5f, var(--green));
+}
+
+/* Modal header (the modal uses an inline navy class; restyle it to green). */
+.bg-\[\#1a365d\] {
+  background: linear-gradient(145deg, #3d7d5f 0%, var(--green-deep) 100%);
 }
 
 /* ---- Print: documents print cleanly on A4 without navigation ---- */
@@ -414,6 +488,11 @@ button:active:not(:disabled) {
   body {
     background: #ffffff !important;
     color: #000000;
+  }
+
+  body::before,
+  body::after {
+    display: none;
   }
 
   .no-print {
@@ -443,28 +522,4 @@ button:active:not(:disabled) {
   header {
     display: none !important;
   }
-}
-
-/* KPI tiles carry a navy accent stripe across the top. */
-.kpi {
-  position: relative;
-  overflow: hidden;
-}
-.kpi::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--navy);
-}
-
-/* The top bar also carries the generic white-surface class, so it needs the more specific selector. */
-header.bg-white {
-  background-color: var(--navy);
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0;
-  box-shadow: none;
 }

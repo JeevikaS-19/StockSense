@@ -88,13 +88,13 @@ export const DashboardPage: React.FC = () => {
               {stats.flow_30_days.some((d) => d.stock_in || d.stock_out) ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={stats.flow_30_days} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#e2e8f0" />
+                    <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#e6dccb" />
                     <XAxis dataKey="display_date" tick={{ fontSize: 12, fill: '#64748b' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
                     <YAxis tick={{ fontSize: 12, fill: '#64748b' }} tickLine={false} axisLine={false} allowDecimals={false} />
                     <Tooltip contentStyle={tooltipStyle} />
                     <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{ fontSize: '13px', paddingBottom: '8px' }} />
-                    <Line type="monotone" dataKey="stock_in" name="In" stroke="#0891b2" strokeWidth={2.5} dot={false} />
-                    <Line type="monotone" dataKey="stock_out" name="Out" stroke="#d97706" strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="stock_in" name="In" stroke="#2f6b4f" strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="stock_out" name="Out" stroke="#c98a1b" strokeWidth={2.5} dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
               ) : (

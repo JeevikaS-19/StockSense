@@ -1,73 +1,77 @@
 # StockSense design system
 
-Professional lab-management software: data-forward, calm, easy to scan for senior users. Colour is used for meaning (status, action, attention), not decoration. Flat surfaces, light borders, no gradients.
+Green and beige: calm, trustworthy lab software. Forest green is the primary colour, beige is the surface. Gradients and clay depth are kept gentle. Colour carries meaning (status, action, attention).
 
 ## Colour swatches
 
 | Swatch | Name | Hex | Used for |
 | --- | --- | --- | --- |
-| Navy | Primary | `#1a365d` | Top bar, table headers, primary buttons, headings, KPI accent stripe |
-| Navy hover | Primary hover | `#142b4d` | Primary button hover |
-| Teal | Accent 1 | `#0891b2` | Data lines, links, focus rings, active sidebar edge |
-| Teal tint | Selected and hover background | `#f0f9ff` | Active sidebar item, row hover, subtle highlights |
-| Emerald | Accent 2 (success) | `#059669` | Good metrics, "in stock", received, approved (text `#047857`, tint `#ecfdf5`) |
-| Amber | Accent 3 (warning) | `#d97706` | Low stock, budget warning (text `#b45309`, tint `#fffbeb`) |
-| Rose | Accent 4 (error) | `#e11d48` | Out of stock, errors, destructive actions (hover `#be123c`, tint `#fff1f2`) |
-| Slate 50 | Background | `#f8fafc` | Page background, zebra rows |
-| Slate 200 | Border | `#e2e8f0` | Card and divider borders |
-| Slate 300 | Input border | `#cbd5e1` | Input borders |
-| Slate 400 | Hint text | `#94a3b8` | Placeholder, disabled, hints |
-| Slate 500 | Secondary text | `#64748b` | Labels and captions |
-| Slate 600 | Body text | `#475569` | Body copy |
+| Forest green | Primary | `#2f6b4f` | Primary buttons, data lines, focus rings, KPI accent |
+| Deep green | Headings and top bar | `#1f4d3a` | Headings, top bar, active text |
+| Green hover | Hover | `#255a43` | Primary button hover |
+| Sage | Secondary accent | `#6f9a84` | Progress fills, secondary highlights |
+| Green tint | Selected and hover background | `#e9f1ec` | Active sidebar item, row hover |
+| Beige | Page background | `#f6f0e6` | Page and sidebar background, zebra rows |
+| Beige deep | Muted fill | `#ece3d3` | Badges, avatars, muted panels |
+| Surface | Cards and inputs | `#fffcf7` | Cards, inputs |
+| Line | Borders | `#e6dccb` | Card and divider borders |
+| Line strong | Input borders | `#d2c5ad` | Input borders |
+| Amber | Warning | `#c98a1b` (text `#91600f`, tint `#fbf3e0`) | Low stock, budget warning, stock out |
+| Rose | Error | `#c2412d` (hover `#a8351f`, tint `#fbeae6`) | Out of stock, errors, destructive actions |
+| Emerald | Success | `#3e8e63` (text `#2f7050`, tint `#e8f4ec`) | In stock, received, approved |
+| Body text | Body | `#5c5344` | Body copy |
+| Muted | Hints | `#8f8573` | Placeholders, captions |
 
 ## Typography
 
 - Font: Inter, with the system stack as fallback.
-- Headings: navy `#1a365d`, semibold to bold.
-- Body: `#475569`, 1.5 line height.
+- Headings: deep green `#1f4d3a`, semibold to bold.
+- Body: `#5c5344`, 1.5 line height.
 - Numbers: tabular figures, so columns line up.
+
+## Surfaces and depth
+
+- Background: beige with a faint sage and gold aura behind the page (two large, heavily blurred blobs at low opacity).
+- Clay cards: a gentle cream gradient, a 1px beige border, a light inner highlight on the top-left, and a soft warm shadow. On hover they lift by 2px.
+- Primary buttons: a soft green gradient with a light top highlight and a green-tinted shadow.
 
 ## Components
 
 **Buttons**
-- Primary (save, submit, approve): navy background, white text, 4px radius. Hover `#142b4d`.
-- Secondary (cancel, view): white background, slate border, navy text. Hover light teal.
-- Destructive (reject, delete, archive): rose background, white text. Hover `#be123c`.
+- Primary (save, submit, approve): green gradient, white text, 10px radius. Hover darkens to deep green.
+- Secondary (cancel, view): surface background, beige border, deep green text. Hover green tint.
+- Destructive (reject, delete, archive): rose gradient, white text.
 - Disabled: 50% opacity, default cursor.
-- Pressed: a 2% scale-down, nothing else moves.
+- Pressed: a 2% scale-down.
 
 **Cards and KPI tiles**
-- White, 1px slate border, 8px radius, a small shadow.
-- KPI tiles add a 3px navy stripe across the top.
-- Hierarchy: label (small, slate 500), number (large, bold, navy), hint (small, slate 500).
+- Clay surface, 14px radius.
+- KPI tiles add a 3px green stripe across the top.
+- Hierarchy: label (small, muted), number (large, bold, deep green), hint (small, muted).
 
 **Status badges**
 - Stock: In stock (emerald), Low stock (amber), Out of stock (rose).
-- Orders: Draft (grey), In progress (teal), Received (teal-green), Rejected or cancelled (rose).
+- Orders: Draft (beige), In progress (green tint), Received (emerald), Rejected or cancelled (rose).
 
 **Inputs**
-- 1px slate-300 border, 6px radius, white background.
-- Focus: teal border with a soft teal ring.
-- Errors: rose text under the field.
+- Surface background, 1px line-strong border, 8px radius, soft inset shadow.
+- Focus: green border with a soft green ring.
 
 **Tables**
-- Navy header with white bold text.
-- White rows with zebra striping in `#f8fafc`.
-- Hover: teal tint.
-- Only row dividers, no column lines.
+- Green header with cream bold text.
+- Surface rows with beige zebra striping.
+- Hover: green tint. Row dividers only.
 
 **Navigation**
-- Sidebar: white, slate border on the right. Inactive items slate 500. Active item: teal tint background, navy text, teal edge on the left. Icons navy.
-- Top bar: navy, with the lab switcher and user menu in white. The notifications bell is cyan with a rose count badge.
+- Sidebar: beige, with a thin border. Inactive items muted. Active item: green tint, deep green text, green edge on the left.
+- Top bar: deep green, with cream text. The notifications bell is gold, with a rose count badge.
 
 **Modals**
-- Navy header with white title. Close button turns white on hover.
-- Body on white, buttons aligned right.
+- Green header with cream title. Body on the surface colour.
 
 **Charts**
-- Solid lines only: in teal `#0891b2`, out amber `#d97706`.
-- Grid lines `#e2e8f0`. Axis labels slate 500.
+- Solid lines: in forest green, out amber. Grid in the line colour, labels muted.
 
 ## Motion
 
-Short and quiet: panels fade and rise 8px in 0.35s, colour changes take 0.15s, progress bars fill in 0.7s. Everything stops when the system asks for reduced motion.
+Gentle: cards and panels rise 10px over 0.45s, colour changes take 0.2s, progress bars fill over 0.8s. Motion stops when the system asks for reduced motion.
