@@ -1,0 +1,11 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Local database and secrets generated at runtime (embedded PGlite data, JWT secret)
+.data/

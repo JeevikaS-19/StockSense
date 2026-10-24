@@ -1,0 +1,6 @@
+{
+  "name": "StockSense",
+  "description": "Multi-lab inventory management system for college departments and campus stores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
