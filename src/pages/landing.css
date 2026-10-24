@@ -196,7 +196,7 @@
   inset: 0;
   background: linear-gradient(120deg, var(--forest), var(--sage), var(--cream), var(--forest));
   background-size: 300% 300%;
-  opacity: 0.16;
+  opacity: 0.35;
   animation: lp-wash 8s ease-in-out infinite;
   pointer-events: none;
 }
@@ -440,7 +440,7 @@
   padding: 96px clamp(20px, 6vw, 96px);
 }
 .lp-band {
-  background: var(--cream);
+  background: linear-gradient(160deg, var(--cream) 0%, #e4ecd6 55%, var(--cream) 100%);
 }
 .lp-section-head {
   text-align: center;
@@ -529,6 +529,7 @@
 /* ---- Features (parallax backdrop) ---- */
 .lp-solution {
   overflow: hidden;
+  background: linear-gradient(200deg, #ffffff 0%, #eef4e6 100%);
   background: #ffffff;
 }
 .lp-parallax {
