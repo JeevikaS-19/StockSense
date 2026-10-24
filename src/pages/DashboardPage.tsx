@@ -7,17 +7,22 @@ import { EmptyState, ErrorBanner } from '../components/common/Field.tsx';
 import { PageLoading } from '../components/common/Skeleton.tsx';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
 import { money, moneyWhole, percent, quantity, dateTime } from '../lib/format.ts';
+import { useCountUp } from '../hooks/useCountUp.ts';
 
 const tooltipStyle = { backgroundColor: '#FFFFFF', borderRadius: '14px', border: 'none', boxShadow: '0 8px 20px rgba(232,116,59,0.18)', fontSize: '13px' };
 
-// One clay tile with one number. Kept deliberately small so the dashboard reads at a glance.
-const Tile: React.FC<{ label: string; value: string; hint?: string; tone?: 'default' | 'attention' | 'alert' }> = ({ label, value, hint, tone = 'default' }) => (
-  <div className="clay p-5">
-    <p className="text-sm font-semibold text-slate-500">{label}</p>
-    <p className={`mt-2 text-3xl font-extrabold tracking-tight tabular-nums ${tone === 'alert' ? 'text-rose-700' : tone === 'attention' ? 'text-amber-700' : 'text-slate-900'}`}>{value}</p>
-    {hint && <p className="mt-1 text-sm text-slate-500">{hint}</p>}
-  </div>
-);
+// One clay tile with one number. The number counts up when it appears, and each tile rises in one after another.
+const Tile: React.FC<{ label: string; value: number | string; format?: (n: number) => string; hint?: string; tone?: 'default' | 'attention' | 'alert'; index?: number }> = ({ label, value, format = (n) => String(Math.round(n)), hint, tone = 'default', index = 0 }) => {
+  const animated = useCountUp(typeof value === 'number' ? value : 0);
+  const shown = typeof value === 'number' ? format(animated) : value;
+  return (
+    <div className="clay rise p-5" style={{ animationDelay: `${index * 90}ms` }}>
+      <p className="text-sm font-semibold text-slate-500">{label}</p>
+      <p className={`mt-2 text-3xl font-extrabold tracking-tight tabular-nums ${tone === 'alert' ? 'text-rose-700' : tone === 'attention' ? 'text-amber-700' : 'text-slate-900'}`}>{shown}</p>
+      {hint && <p className="mt-1 text-sm text-slate-500">{hint}</p>}
+    </div>
+  );
+};
 
 export const DashboardPage: React.FC = () => {
   const { user } = useAuth();
@@ -54,7 +59,7 @@ export const DashboardPage: React.FC = () => {
   const attention = stats ? stats.kpis.low_stock_count + stats.kpis.out_of_stock_count : 0;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 rise">
       <div>
         <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">
           {isAll ? 'All laboratories' : activeLab ? activeLab.name : 'Dashboard'}
@@ -68,10 +73,10 @@ export const DashboardPage: React.FC = () => {
       {stats && (
         <>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            <Tile label="Products" value={String(stats.kpis.total_products)} hint="Active items" />
-            <Tile label="Need attention" value={String(attention)} hint={`${stats.kpis.low_stock_count} low · ${stats.kpis.out_of_stock_count} out`} tone={attention > 0 ? 'attention' : 'default'} />
-            <Tile label="Budget left" value={budget && budget.budget_id !== null ? moneyWhole(budget.available) : '—'} hint={budget && budget.budget_id !== null ? `${percent(budget.percent_used)} used` : isAll ? 'See each lab below' : 'Not set yet'} tone={budget && budget.percent_used >= 90 ? 'alert' : budget && budget.percent_used >= 75 ? 'attention' : 'default'} />
-            <Tile label="Stock value" value={moneyWhole(stats.kpis.total_stock_value)} hint="At current cost" />
+            <Tile index={0} label="Products" value={stats.kpis.total_products} hint="Active items" />
+            <Tile index={1} label="Need attention" value={attention} hint={`${stats.kpis.low_stock_count} low · ${stats.kpis.out_of_stock_count} out`} tone={attention > 0 ? 'attention' : 'default'} />
+            <Tile index={2} label="Budget left" value={budget && budget.budget_id !== null ? budget.available : '—'} format={moneyWhole} hint={budget && budget.budget_id !== null ? `${percent(budget.percent_used)} used` : isAll ? 'See each lab below' : 'Not set yet'} tone={budget && budget.percent_used >= 90 ? 'alert' : budget && budget.percent_used >= 75 ? 'attention' : 'default'} />
+            <Tile index={3} label="Stock value" value={stats.kpis.total_stock_value} format={moneyWhole} hint="At current cost" />
           </div>
 
           <section className="clay p-6">

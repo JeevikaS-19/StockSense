@@ -332,3 +332,104 @@ button:disabled {
 .hover\:border-indigo-400:hover {
   border-color: var(--orange);
 }
+
+/* ---- Motion: things rise in, cards lift on hover, buttons press, bars fill. ---- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.clay {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.clay:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 5px 5px 10px rgba(255, 255, 255, 0.95),
+    inset -4px -5px 9px rgba(255, 159, 90, 0.12),
+    10px 16px 28px rgba(232, 116, 59, 0.2);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    transform 0.15s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.bg-indigo-600:hover:not(:disabled) {
+  box-shadow: 4px 10px 22px rgba(232, 116, 59, 0.45);
+}
+
+/* Progress bars grow in rather than snapping. */
+[role="progressbar"] > div {
+  transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- More white: lighter base, softer orbs, less peach on surfaces. ---- */
+:root {
+  --cream: #fffdfb;
+}
+body::before {
+  opacity: 0.32;
+}
+body::after {
+  opacity: 0.36;
+}
+.clay {
+  background: linear-gradient(145deg, #ffffff 0%, #fffbf7 100%);
+}
+.bg-white {
+  background: linear-gradient(145deg, #ffffff 0%, #fffcf9 100%);
+}
+.bg-slate-50,
+.bg-slate-100 {
+  background-color: #fffaf5;
+}
+.bg-slate-900 {
+  background: linear-gradient(180deg, #ffffff 0%, #fff8f2 100%);
+}
+.bg-indigo-50,
+.bg-indigo-50\/40,
+.bg-indigo-50\/30,
+.bg-indigo-50\/50 {
+  background-color: #fffaf6;
+}
+.hover\:bg-slate-50:hover,
+.hover\:bg-slate-100:hover,
+.hover\:bg-slate-800:hover {
+  background-color: #fff6ee;
+}
