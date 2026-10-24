@@ -6,7 +6,6 @@
   --cream: #f5f1e8;
   --sand: #d4c5b9;
   --ink: #475569;
-  --hint: #94a3b8;
   --card-line: rgba(45, 80, 22, 0.12);
   position: relative;
   min-height: 100vh;
@@ -25,15 +24,31 @@
   line-height: 1.2;
 }
 .lp h1 {
-  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-size: 56px;
   font-weight: 800;
 }
 .lp h2 {
-  font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+  font-size: 40px;
   font-weight: 800;
 }
+.lp h3 {
+  font-weight: 700;
+}
 
-/* ---- Header ---- */
+/* ---- Scroll progress bar ---- */
+.lp-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 30;
+  background: linear-gradient(90deg, var(--sage), var(--mid));
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+}
+
+/* ---- Navigation ---- */
 .lp-nav {
   position: fixed;
   inset: 0 0 auto 0;
@@ -48,9 +63,8 @@
     box-shadow 0.3s ease;
 }
 .lp-nav.is-solid {
-  background: rgba(245, 241, 232, 0.92);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 1px 0 var(--card-line);
+  background: var(--cream);
+  box-shadow: 0 2px 8px rgba(45, 80, 22, 0.1);
 }
 .lp-brand {
   display: flex;
@@ -58,7 +72,15 @@
   gap: 10px;
   font-weight: 800;
   color: var(--forest);
-  font-size: 1.1rem;
+  font-size: 18px;
+  text-decoration: none;
+}
+.lp-brand small {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mid);
 }
 .lp-brand-mark {
   display: flex;
@@ -77,49 +99,32 @@
 }
 .lp-navlinks {
   display: flex;
-  gap: 24px;
+  gap: 28px;
 }
-.lp-navlinks a {
+.lp-navlinks a,
+.lp-footer a {
   position: relative;
-  color: var(--ink);
-  font-weight: 600;
-  font-size: 0.95rem;
+  color: var(--forest);
+  font-weight: 500;
+  font-size: 14px;
   padding: 4px 0;
   text-decoration: none;
 }
-.lp-navlinks a.is-active {
-  color: var(--forest);
-}
-.lp-navlinks a::after,
-.lp-link::after {
+.lp-navlinks a::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   bottom: -2px;
   height: 2px;
-  background: var(--sage);
+  background: var(--mid);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 .lp-navlinks a.is-active::after,
-.lp-navlinks a:hover::after,
-.lp-link:hover::after {
+.lp-navlinks a:hover::after {
   transform: scaleX(1);
-}
-.lp-nav-cta {
-  opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-}
-.lp-nav-cta.is-in {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
 }
 
 /* ---- Buttons ---- */
@@ -128,42 +133,49 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 28px;
+  padding: 12px 24px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  border: 2px solid transparent;
   transition:
-    background-color 0.1s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease,
-    color 0.1s ease;
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 .lp-btn:hover {
   transform: scale(1.05);
 }
 .lp-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
+  transition-duration: 0.1s;
 }
 .lp-btn-primary {
-  background: var(--mid);
+  background: var(--forest);
   color: #ffffff;
-  border: 2px solid var(--mid);
 }
 .lp-btn-primary:hover {
-  background: var(--forest);
-  border-color: var(--forest);
-  box-shadow: 0 8px 20px rgba(45, 80, 22, 0.25);
+  background: var(--mid);
+  box-shadow: 0 8px 20px rgba(45, 80, 22, 0.2);
 }
 .lp-btn-outline {
   background: transparent;
-  color: var(--mid);
-  border: 2px solid var(--mid);
+  color: var(--forest);
+  border-color: var(--mid);
 }
 .lp-btn-outline:hover {
-  background: var(--cream);
-  color: var(--forest);
+  background: rgba(143, 188, 95, 0.15);
+}
+.lp-btn-mid {
+  background: var(--mid);
+  color: #ffffff;
+}
+.lp-btn-mid:hover {
+  background: var(--forest);
 }
 
 /* ---- Hero ---- */
@@ -176,6 +188,43 @@
   gap: 48px;
   padding: 120px clamp(20px, 6vw, 96px) 80px;
   overflow: hidden;
+  background: var(--cream);
+}
+/* Slow colour wash over the beige base, so text stays readable. */
+.lp-hero-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, var(--forest), var(--sage), var(--cream), var(--forest));
+  background-size: 300% 300%;
+  opacity: 0.16;
+  animation: lp-wash 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes lp-wash {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+.lp-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--mid);
+  opacity: 0.1;
+  pointer-events: none;
+  animation: lp-bob 7s ease-in-out infinite;
+}
+@keyframes lp-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-24px);
+  }
 }
 .lp-hero-glow {
   position: absolute;
@@ -190,47 +239,64 @@
   right: -120px;
   top: 10%;
 }
+.lp-hero-copy {
+  position: relative;
+}
 .lp-eyebrow {
-  font-size: 0.85rem;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.2em;
   color: var(--mid);
+  animation: lp-rise 0.6s ease both;
+}
+/* Letter-by-letter headline. Each letter's delay is set inline, 50ms apart. */
+.lp-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.lp-char {
+  display: inline-block;
+  opacity: 0;
+  animation: lp-char-in 0.5s ease forwards;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes lp-char-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .lp-lede {
   margin-top: 18px;
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #8a7b6b;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
   max-width: 36rem;
+  animation: lp-rise 0.8s ease both;
+}
+@keyframes lp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .lp-hero-actions {
   display: flex;
   gap: 16px;
   margin-top: 32px;
   flex-wrap: wrap;
-}
-.lp-scroll-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 28px;
-  transform: translateX(-50%);
-  color: var(--mid);
-  animation: lp-bounce 1.5s ease-in-out infinite;
-}
-@keyframes lp-bounce {
-  0%,
-  100% {
-    transform: translate(-50%, 0);
-  }
-  40% {
-    transform: translate(-50%, 15px);
-  }
-  60% {
-    transform: translate(-50%, 15px);
-  }
+  animation: lp-rise 0.8s ease both;
 }
 
-/* Visual: a stylised stock card with bars, built from CSS only. */
+/* Chart card: slides in from the right, then the bars grow and the ring fills. */
 .lp-visual {
   position: relative;
   height: 380px;
@@ -238,19 +304,40 @@
 .lp-visual-card {
   position: absolute;
   background: #ffffff;
-  border: 1px solid var(--card-line);
   border-radius: 12px;
   box-shadow: 0 12px 30px rgba(45, 80, 22, 0.12);
   padding: 20px;
 }
 .lp-visual-main {
   inset: 40px 40px 60px 0;
+  animation: lp-slide-in 0.8s ease 0.2s both;
+}
+@keyframes lp-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .lp-visual-side {
   right: 0;
   bottom: 0;
   width: 200px;
-  animation: lp-float 4s ease-in-out infinite;
+  animation:
+    lp-slide-in 0.8s ease 0.5s both,
+    lp-float 4s ease-in-out 1.3s infinite;
+}
+@keyframes lp-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 .lp-bar-row {
   display: flex;
@@ -289,24 +376,28 @@
     transform: scaleY(1);
   }
 }
-@keyframes lp-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
+
+/* Ring: the --p custom property is animated, so the fill is smooth. */
+@property --p {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
 }
 .lp-ring {
   width: 110px;
   height: 110px;
   margin: 8px auto 0;
   border-radius: 50%;
-  background: conic-gradient(var(--mid) 0 56%, #e9e2d4 56% 100%);
+  background: conic-gradient(var(--mid) var(--p), #e9e2d4 0);
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: lp-fill 1.6s ease-out 0.8s forwards;
+}
+@keyframes lp-fill {
+  to {
+    --p: 56%;
+  }
 }
 .lp-ring span {
   width: 80px;
@@ -320,10 +411,36 @@
   color: var(--forest);
 }
 
+.lp-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  color: var(--mid);
+  animation: lp-bounce 1.5s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+.lp-scroll-hint.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes lp-bounce {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 12px);
+  }
+}
+
 /* ---- Sections ---- */
 .lp-section {
   position: relative;
-  padding: clamp(72px, 10vw, 120px) clamp(20px, 6vw, 96px);
+  padding: 96px clamp(20px, 6vw, 96px);
+}
+.lp-band {
+  background: var(--cream);
 }
 .lp-section-head {
   text-align: center;
@@ -334,38 +451,31 @@
   margin-top: 12px;
   color: var(--ink);
 }
-.lp-band {
-  background: var(--cream);
-}
-.lp-feature-cell {
-  height: 100%;
-}
 
-/* Reveal on scroll: fades in, then moves into place. Fires once. */
+/* Reveal once on scroll. Elements start faint and settle into place. */
 .lp-reveal {
   opacity: 0.3;
   transition:
     opacity 0.6s ease,
-    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transform 0.6s ease;
   transition-delay: var(--delay, 0ms);
-  will-change: opacity, transform;
 }
 .lp-reveal.lp-up {
   transform: translateY(24px);
 }
-.lp-reveal.lp-left {
-  transform: translateX(-100px);
+.lp-reveal.lp-slide {
   opacity: 0;
-  transition-duration: 0.8s;
+  transform: translateX(-50px);
+}
+.lp-reveal.lp-slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.lp-reveal.lp-scale-up {
+  transform: scale(0.9);
 }
 .lp-reveal.lp-scale {
   transform: scale(0.8);
-}
-.lp-reveal.lp-fade {
-  transform: none;
-}
-.lp-reveal.lp-scale-up {
-  transform: scale(0.95);
 }
 .lp-reveal.is-in {
   opacity: 1;
@@ -380,44 +490,55 @@
   max-width: 1080px;
   margin: 0 auto;
 }
+.lp-problem-cell {
+  height: 100%;
+}
 .lp-problem-card {
   position: relative;
-  background: var(--cream);
-  border-radius: 12px;
-  padding: 32px 28px 32px 36px;
   height: 100%;
-  box-shadow: 0 2px 10px rgba(45, 80, 22, 0.06);
-  transition: box-shadow 0.4s ease;
+  background: #ffffff;
+  border-left: 4px solid var(--mid);
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 2px 4px rgba(45, 80, 22, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
-.lp-problem-card::before {
-  content: "";
+.lp-problem-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(45, 80, 22, 0.15);
+}
+.lp-problem-icon {
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  border-radius: 12px 0 0 12px;
-  background: var(--mid);
-}
-.lp-problem-card.is-in {
-  box-shadow: 0 10px 24px rgba(45, 80, 22, 0.1);
+  top: 24px;
+  right: 24px;
+  opacity: 0.1;
+  color: var(--forest);
 }
 .lp-problem-card h3 {
-  margin: 16px 0 8px;
-  font-size: 1.25rem;
+  margin: 0 0 10px;
+  font-size: 20px;
   font-weight: 700;
+  padding-right: 56px;
+}
+.lp-problem-card p {
+  font-size: 15px;
 }
 
-/* ---- Feature blocks (parallax background behind) ---- */
+/* ---- Features (parallax backdrop) ---- */
 .lp-solution {
   overflow: hidden;
   background: #ffffff;
 }
 .lp-parallax {
   position: absolute;
-  inset: -40px 0 auto 0;
-  height: 60%;
-  background: radial-gradient(ellipse at top, rgba(143, 188, 95, 0.18), transparent 70%);
+  top: -80px;
+  right: -120px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 188, 95, 0.35), transparent 70%);
   transform: translateY(var(--py, 0px));
   pointer-events: none;
 }
@@ -429,50 +550,74 @@
   max-width: 1040px;
   margin: 0 auto;
 }
+.lp-feature-cell {
+  height: 100%;
+}
+/* The tilt is on this inner card, so the reveal on the wrapper never overrides it. */
 .lp-tilt {
   position: relative;
   height: 100%;
   background: #ffffff;
-  border-left: 3px solid var(--mid);
-  border-radius: 12px;
+  border-left: 3px solid var(--sage);
+  border-radius: 8px;
   padding: 32px;
-  box-shadow: 0 6px 18px rgba(45, 80, 22, 0.08);
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
+  box-shadow: 0 4px 10px rgba(45, 80, 22, 0.08);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
   transition:
-    transform 0.15s ease-out,
-    box-shadow 0.15s ease-out;
+    transform 0.2s ease-out,
+    box-shadow 0.3s ease;
 }
 .lp-tilt:hover {
-  --lift: -8px;
+  --s: 1.05;
   box-shadow: 0 18px 36px rgba(45, 80, 22, 0.16);
 }
+.lp-icon-box {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--mid), var(--sage));
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+.lp-tilt:hover .lp-icon-box {
+  transform: scale(1.1) rotate(5deg);
+}
+.lp-arrow {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: var(--sage);
+  transition: transform 0.3s ease;
+}
+.lp-tilt:hover .lp-arrow {
+  transform: translateX(4px);
+}
 .lp-tilt h3 {
-  margin: 14px 0 8px;
-  font-size: 1.3rem;
+  margin: 20px 0 8px;
+  font-size: 18px;
   font-weight: 700;
 }
-.lp-icon {
-  width: 56px;
-  height: 56px;
-  color: var(--mid);
-  stroke-width: 1.5;
+.lp-tilt p {
+  font-size: 14px;
 }
 
 /* ---- How it works timeline ---- */
 .lp-timeline {
   position: relative;
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
-  padding-left: 56px;
 }
 .lp-timeline-line {
   position: absolute;
-  left: 22px;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #e9e2d4;
-  border-radius: 3px;
+  left: 23px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: #e6dccb;
+  border-radius: 2px;
 }
 .lp-timeline-fill {
   position: absolute;
@@ -481,55 +626,56 @@
   width: 100%;
   height: calc(var(--fill, 0) * 100%);
   background: linear-gradient(180deg, var(--sage), var(--forest));
-  border-radius: 3px;
+  border-radius: 2px;
 }
 .lp-step {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 18px 0;
+  padding: 12px 0 28px 80px;
 }
 .lp-step-node {
   position: absolute;
-  left: -56px;
+  left: 0;
+  top: 12px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   background: #ffffff;
-  border: 2px solid var(--sand);
+  border: 2px solid var(--mid);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--mid);
-  transition: border-color 0.3s ease;
-}
-.lp-step.is-done .lp-step-node {
-  border-color: var(--mid);
 }
 .lp-check {
-  margin-left: auto;
   color: var(--mid);
   opacity: 0;
-  transform: scale(0.5);
+  transform: scale(0);
   transition:
-    opacity 0.3s ease,
+    opacity 0.4s ease,
     transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3);
 }
 .lp-step.is-done .lp-check {
   opacity: 1;
   transform: scale(1);
 }
+.lp-step-card {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 16px 24px;
+}
 .lp-step-title {
   font-weight: 700;
   color: var(--forest);
-  font-size: 1.1rem;
+  font-size: 16px;
+}
+.lp-step-card p:last-child {
+  font-size: 14px;
+  margin-top: 4px;
 }
 
-/* ---- Impact ---- */
+/* ---- Stats (dark green, glass cards) ---- */
 .lp-impact {
-  background: var(--forest);
-  color: #f5f1e8;
+  background: linear-gradient(135deg, var(--forest), var(--mid));
+  color: var(--cream);
 }
 .lp-impact h2 {
   color: #ffffff;
@@ -542,19 +688,28 @@
   margin: 0 auto;
   text-align: center;
 }
+.lp-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 32px;
+}
 .lp-stat-value {
   font-size: 48px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--sage);
   line-height: 1.1;
 }
 .lp-stat-label {
   margin-top: 10px;
-  color: #d4e5c7;
-  font-size: 0.95rem;
+  color: #ffffff;
+  opacity: 0.9;
+  font-size: 14px;
 }
 
-/* ---- CTA ---- */
+/* ---- Bottom CTA block ---- */
 .lp-cta {
   text-align: center;
   background-color: var(--cream);
@@ -571,6 +726,9 @@
   border-radius: 16px;
   box-shadow: 0 16px 40px rgba(45, 80, 22, 0.12);
 }
+.lp-cta-inner p {
+  max-width: 28rem;
+}
 .lp-cta-actions {
   display: flex;
   gap: 16px;
@@ -578,14 +736,19 @@
   justify-content: center;
 }
 
-/* Floating button, bottom right, appears after scrolling. */
+/* Floating card, bottom right. Appears after 500px of scroll and hides near the footer. */
 .lp-float-cta {
   position: fixed;
   right: 24px;
   bottom: 24px;
   z-index: 25;
+  width: 240px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(45, 80, 22, 0.2);
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(20px);
   pointer-events: none;
   transition:
     opacity 0.3s ease,
@@ -595,6 +758,21 @@
   opacity: 1;
   transform: none;
   pointer-events: auto;
+  animation: lp-float 2s ease-in-out infinite;
+}
+.lp-float-cta.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.lp-float-cta h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.lp-float-cta .lp-btn {
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 14px;
 }
 
 /* ---- Footer ---- */
@@ -610,9 +788,7 @@
 }
 .lp-footer a {
   color: var(--cream);
-  text-decoration: none;
   margin-left: 20px;
-  position: relative;
 }
 .lp-footer small {
   color: #c9d8bd;
@@ -621,14 +797,14 @@
   color: var(--cream);
 }
 
-/* ---- Responsive: tablet and mobile ---- */
+/* ---- Tablet: stacked hero, two-column features ---- */
 @media (max-width: 1199px) {
   .lp-hero {
     grid-template-columns: 1fr;
     text-align: center;
     padding-top: 140px;
   }
-  .lp-hero-copy p {
+  .lp-lede {
     margin-left: auto;
     margin-right: auto;
   }
@@ -646,17 +822,33 @@
   }
 }
 
+/* ---- Mobile: single column, smaller type, no parallax, no floating stats ---- */
 @media (max-width: 767px) {
+  .lp h1 {
+    font-size: 40px;
+  }
+  .lp h2 {
+    font-size: 32px;
+  }
   .lp-navlinks {
     display: none;
+  }
+  .lp-section {
+    padding: 72px 20px;
   }
   .lp-problem-grid,
   .lp-feature-grid {
     grid-template-columns: 1fr;
   }
+  .lp-parallax {
+    display: none;
+  }
   .lp-stats {
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 16px;
+  }
+  .lp-glass {
+    padding: 24px 16px;
   }
   .lp-stat-value {
     font-size: 36px;
@@ -665,14 +857,16 @@
   .lp-cta-actions .lp-btn {
     width: 100%;
   }
-  .lp-timeline {
-    padding-left: 44px;
+  .lp-lede {
+    font-size: 16px;
   }
   .lp-timeline-line {
-    left: 16px;
+    left: 19px;
+  }
+  .lp-step {
+    padding-left: 60px;
   }
   .lp-step-node {
-    left: -44px;
     width: 40px;
     height: 40px;
   }
@@ -683,9 +877,25 @@
   .lp-visual-side {
     display: none;
   }
+  .lp-visual-main {
+    inset: 0;
+  }
   .lp-float-cta {
-    right: 16px;
+    left: 16px;
+    right: auto;
     bottom: 16px;
+    width: 200px;
+    padding: 16px;
+  }
+  .lp-orb {
+    display: none;
+  }
+}
+
+/* Smooth scroll for in-page anchors, only for people who allow motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -696,6 +906,7 @@
     animation: none !important;
     transition: none !important;
   }
+  .lp-char,
   .lp-reveal {
     opacity: 1;
     transform: none;
