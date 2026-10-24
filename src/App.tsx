@@ -27,6 +27,14 @@ import { AuditLogPage } from './pages/AuditLogPage.tsx';
 import { LabsPage } from './pages/LabsPage.tsx';
 import { SettingsPage } from './pages/SettingsPage.tsx';
 import { NotFoundPage } from './pages/NotFoundPage.tsx';
+import { LandingPage } from './pages/LandingPage.tsx';
+
+// The home page is the landing page for signed-out visitors and the app shell for signed-in users.
+const HomeRoute: React.FC = () => {
+  const { user, loading } = useAuth();
+  if (loading) return <p className="p-8 text-sm text-slate-500">Loading…</p>;
+  return user ? <AppLayout /> : <LandingPage />;
+};
 
 // Administrator-only routes. Staff who type the URL are sent back to the dashboard.
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -56,7 +64,7 @@ export default function App() {
               <Route path="/purchase-orders/:id/print" element={<SignedIn><PurchaseOrderPrintPage /></SignedIn>} />
               <Route path="/reports/preview" element={<SignedIn><ReportPreviewPage /></SignedIn>} />
 
-              <Route path="/" element={<AppLayout />}>
+              <Route path="/" element={<HomeRoute />}>
                 <Route index element={<DashboardPage />} />
                 <Route path="products" element={<ProductsPage />} />
                 <Route path="reorder" element={<ReorderPage />} />
