@@ -257,3 +257,57 @@ button:disabled {
     display: none !important;
   }
 }
+
+/* Auth pages: white base with a heavily blurred amber, burnt-orange and peach aura. No hard edges. */
+.auth-bg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.auth-blob {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.auth-blob-amber {
+  width: 620px;
+  height: 560px;
+  top: -200px;
+  right: -160px;
+  background: #f7a12b;
+  opacity: 0.85;
+}
+
+.auth-blob-burnt {
+  width: 680px;
+  height: 520px;
+  bottom: -260px;
+  left: -200px;
+  background: #ef6a2a;
+  opacity: 0.75;
+}
+
+.auth-blob-peach {
+  width: 520px;
+  height: 320px;
+  top: 30%;
+  left: 30%;
+  background: #ffc59a;
+  opacity: 0.6;
+}
+
+/* Wordmark: rounded geometric type with an amber-to-burnt gradient fill. */
+.wordmark {
+  font-family: "Quicksand", "Nunito", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(100deg, #f7a12b 0%, #ef6a2a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

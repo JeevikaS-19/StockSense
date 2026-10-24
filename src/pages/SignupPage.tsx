@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.tsx';
 import { api, errorMessage } from '../api/client.ts';
-import { Package2, ArrowRight, ShieldCheck, Key } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Key } from 'lucide-react';
+import { Wordmark } from '../components/common/Wordmark.tsx';
 import { useToast } from '../components/common/Toast.tsx';
 import { Field, inputClass, buttonPrimary, ErrorBanner } from '../components/common/Field.tsx';
 
@@ -76,16 +77,13 @@ export const SignupPage: React.FC = () => {
   const staffNeedsToken = needsSetup === false;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
-      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 md:p-8">
-        <div className="mb-6 flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white">
-            <Package2 className="h-4.5 w-4.5" />
-          </div>
-          <div>
-            <h1 className="text-base font-semibold text-slate-900">StockSense</h1>
-            <p className="text-xs text-slate-500">Lab inventory and procurement</p>
-          </div>
+    <div className="auth-bg flex min-h-screen items-center justify-center p-4">
+      <div className="auth-blob auth-blob-amber" aria-hidden="true" />
+      <div className="auth-blob auth-blob-burnt" aria-hidden="true" />
+      <div className="auth-blob auth-blob-peach" aria-hidden="true" />
+      <div className="w-full max-w-md rounded-3xl border border-orange-100 bg-white/90 p-6 shadow-xl backdrop-blur md:p-8">
+        <div className="mb-8">
+          <Wordmark />
         </div>
 
         {needsSetup === true && (
