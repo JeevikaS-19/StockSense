@@ -236,7 +236,7 @@ export const PurchaseOrderDetailPage: React.FC = () => {
             </>
           )}
           {po.status === 'approved' && isAdmin && (
-            <button type="button" className={buttonPrimary} onClick={() => setDialog('email')} disabled={busy} title="Review the supplier message, then send the order">
+            <button type="button" className={buttonPrimary} onClick={() => send()} disabled={busy} title="Marks the order as sent and emails the supplier">
               <Send className="h-4 w-4" /> Send to supplier
             </button>
           )}

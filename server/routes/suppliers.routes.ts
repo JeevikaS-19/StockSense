@@ -28,7 +28,23 @@ suppliersRouter.get(
   requireAuth,
   asyncHandler(async (req, res) => {
     const result = await db.query(`${SUPPLIER_SELECT} ORDER BY s.name ASC`);
-    res.json({ suppliers: result.rows.map((row) => ({ ...row, id: Number(row.id), email: row.email || null })) });
+    const supplied = await db.query(
+      `SELECT supplier_id, sku, name FROM products WHERE supplier_id IS NOT NULL AND is_active = true ORDER BY name`
+    );
+    const bySupplier = new Map<number, { sku: string; name: string }[]>();
+    for (const row of supplied.rows) {
+      const list = bySupplier.get(Number(row.supplier_id)) ?? [];
+      list.push({ sku: row.sku, name: row.name });
+      bySupplier.set(Number(row.supplier_id), list);
+    }
+    res.json({
+      suppliers: result.rows.map((row) => ({
+        ...row,
+        id: Number(row.id),
+        email: row.email || null,
+        products: bySupplier.get(Number(row.id)) ?? [],
+      })),
+    });
   })
 );
 

@@ -140,6 +140,22 @@ export const SuppliersPage: React.FC = () => {
                   )}
                 </div>
               </div>
+              <div className="mt-3 border-t border-slate-100 pt-3">
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">Supplies</p>
+                {(s.products ?? []).length === 0 ? (
+                  <p className="text-sm text-slate-500">No products linked yet.</p>
+                ) : (
+                  <ul className="space-y-1">
+                    {(s.products ?? []).slice(0, 5).map((p) => (
+                      <li key={p.sku} className="flex items-center justify-between gap-2 text-sm">
+                        <span className="truncate text-slate-800">{p.name}</span>
+                        <span className="font-mono text-xs text-slate-500">{p.sku}</span>
+                      </li>
+                    ))}
+                    {(s.products ?? []).length > 5 && <li className="text-sm font-semibold text-orange-700">+ {(s.products ?? []).length - 5} more</li>}
+                  </ul>
+                )}
+              </div>
               <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-sm text-slate-500">
                 <span className="flex items-center gap-1">
                   <Package className="h-3.5 w-3.5 text-slate-400" /> Products

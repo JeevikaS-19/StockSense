@@ -29,6 +29,7 @@ export interface Supplier {
   address: string;
   product_count?: number;
   open_po_count?: number;
+  products?: { sku: string; name: string }[];
 }
 
 export type StockStatus = 'ok' | 'low' | 'out';

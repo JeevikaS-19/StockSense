@@ -236,7 +236,7 @@ export const ProductsPage: React.FC = () => {
         <div className="min-w-0 max-w-xs">
           <p className="truncate font-medium text-slate-900">{p.name}</p>
           <p className="truncate text-xs text-slate-500">
-            {p.category} · {money(p.unit_price)} · {p.supplier_name ?? 'No supplier set'}
+            {p.category}
           </p>
         </div>
       ),
